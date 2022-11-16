@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/UsernowII/CLEAN-API---TS/issues"
   },
-  "homepage": "https://github.com/UsernowII/CLEAN-API---TS#readme"
+  "homepage": "https://github.com/UsernowII/CLEAN-API---TS#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.2.1"
+  }
 }
