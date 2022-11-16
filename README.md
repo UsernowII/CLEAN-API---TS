@@ -16,13 +16,6 @@ This api is a portion of Professor Rodrigo Manguinho's (Mango) course on Udemy.
 The objective of the training is to show how to create an API with a well-defined and decoupled architecture, using TDD (test-oriented programming) as a work methodology, Clean Architecture to distribute responsibilities in layers, always following the principles of SOLID and, whenever possible, applying Design Patterns to solve some common problems.
 <br /><br />
 
-## Contribute to this project <3
-<a href='https://ko-fi.com/M4M265FO6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-
-<br />
-
-## [**Link for API documentation**](http://fordevs.herokuapp.com/api-docs)
-
 > ## APIs buildings
 
 1. [Register](./requirements/signup.md)
