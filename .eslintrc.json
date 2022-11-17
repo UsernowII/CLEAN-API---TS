@@ -5,14 +5,16 @@
 },
   "rules": {
     "@typescript-eslint/semi" : "off",
-    "@typescript-eslint/indent" : "off"
+    "@typescript-eslint/indent" : "off",
+    "@typescript-eslint/quotes" : "off"
   },
   "overrides": [
     { 
       "files" : ["./**"],
       "rules": {
         "semi": ["error", "always"],
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "quotes" : ["error", "double"]
       }
     }
   ]
