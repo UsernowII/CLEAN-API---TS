@@ -1,7 +1,5 @@
 import { SignUpController } from "../../../src/presentation/controllers/SingUp"
-import { InvalidParamError } from "../../../src/presentation/errors/InvalidParamError";
-import { MissingParamError } from "../../../src/presentation/errors/MissinParamError";
-import { ServerError } from "../../../src/presentation/errors/ServerError";
+import { InvalidParamError, MissingParamError, ServerError } from "../../../src/presentation/errors";
 import { EmailValidator } from "../../../src/presentation/protocols/emailValidator";
 
 type SutTypes = {
