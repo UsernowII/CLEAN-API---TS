@@ -4,13 +4,15 @@
     "project": "./tsconfig.json"
 },
   "rules": {
-    "@typescript-eslint/semi" : "off"
+    "@typescript-eslint/semi" : "off",
+    "@typescript-eslint/indent" : "off"
   },
   "overrides": [
     { 
       "files" : ["./**"],
       "rules": {
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+        "indent": ["error", 4]
       }
     }
   ]
