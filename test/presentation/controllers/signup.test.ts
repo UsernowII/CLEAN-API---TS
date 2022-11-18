@@ -139,7 +139,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError(httpRequest.body.email));
   });
-  test('Should email validator with correct email', () => {
+  test('Should call Email Validator with correct email', () => {
     const { sut, emailValidatorStub } = makeSut();
     const isValidSpy = jest.spyOn(emailValidatorStub, "isValid");
     const httpRequest = {
@@ -186,7 +186,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new ServerError());
   });
-  test('Should rcall AddAccount with correct values', () => {
+  test('Should call AddAccount with correct values', () => {
     const { sut, addAccountStub } =  makeSut();
     const addSpy = jest.spyOn(addAccountStub, "add");
     const httpRequest = {
