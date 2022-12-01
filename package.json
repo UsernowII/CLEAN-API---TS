@@ -8,7 +8,7 @@
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
-    "test:staged" : "npm test -- --findRelatedTests",
+    "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
   "repository": {
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/UsernowII/CLEAN-API---TS.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Usernow",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/UsernowII/CLEAN-API---TS/issues"
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
+    "@types/validator": "^13.7.10",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint": "^8.27.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -37,5 +38,8 @@
     "lint-staged": "^13.0.3",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "validator": "^13.7.0"
   }
 }
