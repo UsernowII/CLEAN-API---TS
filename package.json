@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/UsernowII/CLEAN-API---TS#readme",
   "devDependencies": {
+    "@shelf/jest-mongodb": "^2.0.3",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
@@ -42,6 +43,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "mongodb": "^4.12.1",
     "validator": "^13.7.0"
   }
 }
