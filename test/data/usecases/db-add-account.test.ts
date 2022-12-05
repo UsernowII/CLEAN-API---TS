@@ -25,7 +25,7 @@ const makeAddAccountRepository = (): AddAccountRepository => {
         email: "valid_email",
         password: "hashed_password",
       }
-      return new Promise( resolve => resolve(fakeAccount));
+      return Promise.resolve(fakeAccount);
     }
   }
   return new AddAccountRepositoryStub();
