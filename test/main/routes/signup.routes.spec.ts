@@ -1,5 +1,5 @@
 import request from "supertest";
-import { MongoHelper } from "../../../src/infra/db/mongodb/mongo-helpers";
+import { MongoHelper } from "../../../src/infra/db/mongodb/helpers/mongo-helper";
 import app from "../../../src/main/config/app";
 
 describe('signup Routes', () => {
@@ -13,7 +13,7 @@ describe('signup Routes', () => {
   });
 
   afterEach(async () => {
-    await MongoHelper.getCollection("accounts").deleteMany({});
+    await (await MongoHelper.getCollection("accounts")).deleteMany({});
   })
 
   test('Should return an account on success', async () => {

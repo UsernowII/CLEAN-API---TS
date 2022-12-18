@@ -1,5 +1,5 @@
-import { AccountMongoRepository } from "../../../../../src/infra/db/mongodb/accountMongoRepository";
-import { MongoHelper } from "../../../../../src/infra/db/mongodb/mongo-helpers";
+import { AccountMongoRepository } from "../../../../../src/infra/db/mongodb/account-repository/accountMongoRepository";
+import { MongoHelper } from "../../../../../src/infra/db/mongodb/helpers/mongo-helper";
 
 describe('Account Mongo Repository', () => {
 
@@ -12,7 +12,7 @@ describe('Account Mongo Repository', () => {
   });
 
   afterEach(async () => {
-    await MongoHelper.getCollection("accounts").deleteMany({});
+    await (await MongoHelper.getCollection("accounts")).deleteMany({});
   })
 
   const makeSut = (): AccountMongoRepository => {
