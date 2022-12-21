@@ -2,6 +2,8 @@ import { LogMongoRepository } from "../../../../../src/infra/db/mongodb/log-repo
 import { Collection } from "mongodb";
 import { MongoHelper } from "../../../../../src/infra/db/mongodb/helpers/mongo-helper";
 
+const makeSut = (): LogMongoRepository => new LogMongoRepository();
+
 describe('Log Mongo Repository', () => {
 
 	let errorCollection: Collection;
@@ -17,11 +19,11 @@ describe('Log Mongo Repository', () => {
 	beforeEach(async () => {
 		errorCollection = await MongoHelper.getCollection("errors");
 		await errorCollection.deleteMany({});
-	})
-	
+	});
+
 	test('Should create an error log on success', async () => {
 		console.log(errorCollection);
-		const sut = new LogMongoRepository();
+		const sut = makeSut();
 		await sut.logError("any_error");
 		const count = await errorCollection.countDocuments();
 		expect(count).toBe(1);
