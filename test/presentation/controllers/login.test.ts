@@ -2,15 +2,29 @@ import { LoginController } from "../../../src/presentation/controllers/login/log
 import { HttpRequest } from '../../../src/presentation/protocols/http';
 import { badRequest } from "../../../src/presentation/helpers/http-helper";
 import { MissingParamError } from '../../../src/presentation/errors/MissinParamError';
+import { EmailValidator } from '../../../src/presentation/protocols/emailValidator';
+import { EmailValidatorAdapter } from '../../../src/utils/emailValidatorAdapter';
 
 interface SutTypes {
 	sut: LoginController,
+	emailValidatorStub: EmailValidator,
 }
 
+const makeEmailValidator = (): EmailValidator => {
+	class EmailValidatorStub implements EmailValidator {
+		isValid (email: string): boolean {
+			return true;
+		}	
+	}
+	return new EmailValidatorAdapter();
+};
+
 const makesut = (): SutTypes => {
-	const sut = new LoginController();
+	const emailValidatorStub = makeEmailValidator();
+	const sut = new LoginController(emailValidatorStub);
 	return {
 		sut,
+		emailValidatorStub,
 	}
 };
 
@@ -25,6 +39,7 @@ describe('Login Controller', () => {
 		const httpResponse = await sut.handle(httpRequest);
 		expect(httpResponse).toEqual(badRequest(new MissingParamError("email")))
   });
+
   test('Should return 400 if no password is provided', async () => {
     const { sut } = makesut();
 		const httpRequest: HttpRequest = {
@@ -35,14 +50,19 @@ describe('Login Controller', () => {
 		const httpResponse = await sut.handle(httpRequest);
 		expect(httpResponse).toEqual(badRequest(new MissingParamError("password")))
   });
-	test('Should return 400 if no password is provided', async () => {
-    const { sut } = makesut();
+
+	test('Should call EmailValidator with correct values', async () => {
+    const { sut, emailValidatorStub } = makesut();
 		const httpRequest: HttpRequest = {
 			body: { 
+				password: "any_password",
 				email: "any_email@email.com"
 			}
 		}
-		const httpResponse = await sut.handle(httpRequest);
-		expect(httpResponse).toEqual(badRequest(new MissingParamError("password")))
+		const isValidSpy = jest.spyOn(emailValidatorStub, "isValid");
+		await sut.handle(httpRequest);
+		expect(isValidSpy).toHaveBeenCalledWith("any_email@email.com");
+		expect(isValidSpy).toHaveBeenCalledTimes(1);
   });
+
 });
