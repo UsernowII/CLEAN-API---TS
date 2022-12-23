@@ -11,6 +11,13 @@ interface SutTypes {
 	emailValidatorStub: EmailValidator,
 }
 
+const makeFakehttpRequest = (): HttpRequest => ({
+	body: { 
+		email: "any_email@email.com",
+		password: "any_password",
+	}
+});
+
 const makeEmailValidator = (): EmailValidator => {
 	class EmailValidatorStub implements EmailValidator {
 		isValid (email: string): boolean {
@@ -54,27 +61,15 @@ describe('Login Controller', () => {
 
 	test('Should return 400 if invalid email is provided', async () => {
     const { sut, emailValidatorStub } = makesut();
-		const httpRequest: HttpRequest = {
-			body: { 
-				email: "any_email",
-				password: "any_password",
-			}
-		}
 		jest.spyOn(emailValidatorStub, "isValid").mockReturnValueOnce(false);
-		const httpResponse = await sut.handle(httpRequest);
-		expect(httpResponse).toEqual(badRequest(new InvalidParamError("any_email")))
+		const httpResponse = await sut.handle(makeFakehttpRequest());
+		expect(httpResponse).toEqual(badRequest(new InvalidParamError("any_email@email.com")))
   });
 
 	test('Should call EmailValidator with correct values', async () => {
     const { sut, emailValidatorStub } = makesut();
-		const httpRequest: HttpRequest = {
-			body: { 
-				password: "any_password",
-				email: "any_email@email.com"
-			}
-		}
 		const isValidSpy = jest.spyOn(emailValidatorStub, "isValid");
-		await sut.handle(httpRequest);
+		await sut.handle(makeFakehttpRequest());
 		expect(isValidSpy).toHaveBeenCalledWith("any_email@email.com");
 		expect(isValidSpy).toHaveBeenCalledTimes(1);
   });
