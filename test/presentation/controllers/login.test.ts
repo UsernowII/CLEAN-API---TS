@@ -1,10 +1,7 @@
 import { LoginController } from "../../../src/presentation/controllers/login/login";
-import { HttpRequest } from '../../../src/presentation/protocols/http';
-import { badRequest, serverError, unauthorized } from '../../../src/presentation/helpers/http-helper';
-import { MissingParamError } from '../../../src/presentation/errors/MissinParamError';
-import { EmailValidator } from '../../../src/presentation/protocols/emailValidator';
-import { InvalidParamError } from '../../../src/presentation/errors/InvalidParamError';
-import { Authentication } from "../../../src/domain/usecases/authentication";
+import { badRequest, serverError, unauthorized } from "../../../src/presentation/helpers/http-helper";
+import { MissingParamError, InvalidParamError } from "../../../src/presentation/errors";
+import { EmailValidator, Authentication, HttpRequest } from "../../../src/presentation/controllers/login/login-protocols";
 
 interface SutTypes {
 	sut: LoginController,
