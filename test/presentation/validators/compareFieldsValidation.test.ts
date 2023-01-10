@@ -12,7 +12,7 @@ describe('Compare Fields Validation', () => {
     expect(error).toEqual(new InvalidParamError("field"));
   });
 
-  test('Should not return if validation success', () => {
+  test('Should return null if validation success', () => {
     const sut = makeSut();
     const error = sut.validate({ field: "any_value", compareField: "any_value"});
     expect(error).toBeNull();

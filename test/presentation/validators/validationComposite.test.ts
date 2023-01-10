@@ -30,4 +30,10 @@ describe('Validation Composite', () => {
     const error = sut.validate({ field: "any_value"});
     expect(error).toEqual(new MissingParamError("field"));
   });
+
+	test('Should return null if validation success', () => {   
+    const { sut } = makeSut();
+    const error = sut.validate({ field: "any_value"});
+    expect(error).toBeNull();
+  });
 });
