@@ -1,6 +1,6 @@
 import { EmailValidation } from "../../../src/presentation/helpers/validators/EmailValidation";
 import { InvalidParamError } from "../../../src/presentation/errors";
-import { EmailValidator } from "../../../src/presentation/controllers/signup/signup-protocols";
+import { EmailValidator } from "../../../src/presentation/protocols/emailValidator";
 
 type SutTypes = {
   sut: EmailValidation,
