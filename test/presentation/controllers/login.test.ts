@@ -1,7 +1,7 @@
 import { LoginController } from "../../../src/presentation/controllers/login/Login";
-import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http-helper';
+import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http/http-helper';
 import { MissingParamError } from "../../../src/presentation/errors";
-import { Validation, Authentication, HttpRequest } from "../../../src/presentation/controllers/login/login-protocols";
+import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../src/presentation/controllers/login/login-protocols";
 
 interface SutTypes {
 	sut: LoginController,
@@ -27,7 +27,7 @@ const makeValidation = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
 	class AuthenticationStub implements Authentication {
-		async auth(email: string, password: string): Promise<string> {
+		async auth(auth: AuthenticationModel): Promise<string> {
 			return Promise.resolve("any_token");
 		}
 	}
@@ -50,7 +50,10 @@ describe('Login Controller', () => {
 		const { sut, authenticationStub } = makeSut();
 		const authSpy = jest.spyOn(authenticationStub, "auth");
 		await sut.handle(makeFakeHttpRequest());
-		expect(authSpy).toHaveBeenCalledWith("any_email@email.com", "any_password");
+		expect(authSpy).toHaveBeenCalledWith({
+			email: "any_email@email.com", 
+			password: "any_password"
+		});
 		expect(authSpy).toHaveBeenCalledTimes(1);
 	});
 
