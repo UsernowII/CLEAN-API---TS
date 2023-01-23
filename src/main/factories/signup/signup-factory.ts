@@ -8,7 +8,7 @@ import { LogControllerDecorator } from "../../decorators/logControllerDecorator"
 import { makeSignUpValidation } from "./signup-validation-factory";
 
 export const makeSignUpController = (): Controller => {
-    const salt = 5;
+    const salt = 12;
     const bcryptAdapter = new BcryptAdapter(salt);
     const accountMongoRepo = new AccountMongoRepository();
     const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepo);

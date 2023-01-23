@@ -58,7 +58,7 @@ describe('Account Mongo Repository', () => {
     expect(account).toBeNull();
   });
 
-  test('Should update accesstok when updateAccessToken success', async () => {
+  test('Should update accessToken when updateAccessToken success', async () => {
     const sut = makeSut();
     const { insertedId } = await accountCollection.insertOne({
       name: "any_name",
