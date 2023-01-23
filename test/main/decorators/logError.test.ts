@@ -1,7 +1,7 @@
-import { LogControllerDecorator } from "../../../src/main/decorators/log";
+import { LogControllerDecorator } from "../../../src/main/decorators/logControllerDecorator";
 import { Controller, HttpRequest, HttpResponse } from "../../../src/presentation/protocols";
 import { serverError } from "../../../src/presentation/helpers/http/http-helper";
-import { LogErrorRepository } from "../../../src/data/protocols/db/logErrorRepository";
+import { LogErrorRepository } from "../../../src/data/protocols/db/log/logErrorRepository";
 
 type SutTypes = {
 	sut: LogControllerDecorator,

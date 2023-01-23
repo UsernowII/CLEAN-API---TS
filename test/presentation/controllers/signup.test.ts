@@ -1,4 +1,4 @@
-import { SignUpController } from "../../../src/presentation/controllers/signup/SingUp"
+import { SignUpController } from "../../../src/presentation/controllers/signup/SingUp-controller"
 import { MissingParamError, ServerError } from "../../../src/presentation/errors";
 import { createdOk, badRequest, serverError } from "../../../src/presentation/helpers/http/http-helper";
 import {
