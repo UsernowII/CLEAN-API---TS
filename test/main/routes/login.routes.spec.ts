@@ -36,7 +36,7 @@ describe('Login Routes', () => {
   });
 
   describe("Login / POST", () => {
-    test('Should return 401 on login fail', async () => {
+    test('Should return 200 on login success', async () => {
       const password = await hash("1234", 12)
       await accountCollection.insertOne({
         name: "Oscar Raniz",
@@ -47,9 +47,18 @@ describe('Login Routes', () => {
         .post("/api/login")
         .send({
           email: "bronceRaniz@gmail.com",
-          password: "123",
+          password: "1234",
         })
-        .expect(401);
+        .expect(200);
+    });
+    test('Should return 401 on login fail', async () => {
+      await request(app)
+          .post("/api/login")
+          .send({
+            email: "bronceRaniz@gmail.com",
+            password: "1234",
+          })
+          .expect(401)
     });
   });
 
