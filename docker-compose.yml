@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:3
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-container
+    build: .
+    image: node-api-compose
+    restart: always
+    command: npm start
+    volumes:
+      - ./dist/:/usr/src/node-api/dist/
+    ports:
+      - "5050:5050"
+    links:
+      - mongo
+
+
+
+
