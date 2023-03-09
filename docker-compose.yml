@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  mongo:
+    container_name: mongo-container
+    image: mongo:3
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-container
+    image: node:16.19.1-alpine
+    working_dir: /usr/src/node-api
+    restart: always
+    command: sh -c "npm install --omit=dev && npm run debug"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/node-api
+    volumes:
+      - ./dist/:/usr/src/node-api/dist/
+      - ./package.json:/usr/src/node-api/package.json
+    ports:
+      - "5050:5050"
+      - "9229:9229"
+    links:
+      - mongo
+
+
+
+
