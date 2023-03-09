@@ -8,11 +8,13 @@ import {
   HttpRequest,
   Validation
 } from "../../../src/presentation/controllers/signup/signup-protocols";
+import { Authentication, AuthenticationModel } from "../../domain/usecases/authentication";
 
 type SutTypes = {
   sut: SignUpController,
   addAccountStub: AddAccount,
-  validationStub: Validation
+  validationStub: Validation,
+  authenticationStub: Authentication,
 }
 
 const makeFakeAccount = (): AccountModel => ({
@@ -40,6 +42,15 @@ const makeValidation = (): Validation => {
   return new ValidationStub();  
 }
 
+const makeAuthentication = (): Authentication => {
+	class AuthenticationStub implements Authentication {
+		async auth(auth: AuthenticationModel): Promise<string> {
+			return Promise.resolve("any_token");
+		}
+	}
+	return new AuthenticationStub();
+};
+
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     add(account: AddAccountModel): Promise<AccountModel> {
@@ -50,13 +61,15 @@ const makeAddAccount = (): AddAccount => {
 }
 
 const makeSut = (): SutTypes => {
+  const authenticationStub = makeAuthentication();
   const addAccountStub = makeAddAccount();
   const validationStub = makeValidation();
-  const sut = new SignUpController(addAccountStub, validationStub);
+  const sut = new SignUpController(addAccountStub, validationStub, authenticationStub);
   return {
     sut,
     addAccountStub,
-    validationStub
+    validationStub,
+    authenticationStub,
   }
 }
 
@@ -103,4 +116,15 @@ describe('SignUp Controller', () => {
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError("any_field")));
   });
+
+  test('Should call Authentication with correct values', async () => {
+		const { sut, authenticationStub } = makeSut();
+		const authSpy = jest.spyOn(authenticationStub, "auth");
+		await sut.handle(makeFakeRequest());
+		expect(authSpy).toHaveBeenCalledWith({
+			email: "any_email@email.com", 
+			password: "any_password"
+		});
+		expect(authSpy).toHaveBeenCalledTimes(1);
+	});
 });

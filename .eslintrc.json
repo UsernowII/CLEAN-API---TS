@@ -7,7 +7,8 @@
     "@typescript-eslint/semi" : "off",
     "@typescript-eslint/indent" : "off",
     "@typescript-eslint/quotes" : "off",
-    "@typescript-eslint/strict-boolean-expressions" : "off"
+    "@typescript-eslint/strict-boolean-expressions" : "off",
+    "@typescript-eslint/prefer-nullish-coalescing" : "off"
   },
   "overrides": [
     { 
