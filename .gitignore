@@ -29,6 +29,8 @@ coverage
 # build
 dist
 data
+!src/data
+!test/data
 build
 
 # nyc test coverage
