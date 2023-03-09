@@ -1,6 +1,6 @@
 import { SignUpController } from "../../../src/presentation/controllers/signup/SingUp-controller"
-import { MissingParamError, ServerError } from "../../../src/presentation/errors";
-import { createdOk, badRequest, serverError } from "../../../src/presentation/helpers/http/http-helper";
+import { MissingParamError, ServerError, UniqueEmailError } from "../../../src/presentation/errors";
+import { createdOk, badRequest, serverError, forbidden } from "../../../src/presentation/helpers/http/http-helper";
 import {
   AddAccount,
   AddAccountModel,
@@ -97,9 +97,16 @@ describe('SignUp Controller', () => {
   test('Should return 201 if valid data is provided', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(createdOk(makeFakeAccount()));
     expect(httpResponse.statusCode).toBe(201);
-    expect(httpResponse.body).toEqual(makeFakeAccount());
+    expect(httpResponse).toEqual(createdOk({ accessToken : "any_token"}));
+  });
+
+  test('Should return 403 if AddAcount returns null', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, "add").mockReturnValueOnce(Promise.resolve(null))
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse.statusCode).toBe(403);
+    expect(httpResponse).toEqual(forbidden(new UniqueEmailError()));
   });
 
   test('Should call Validation with correct values', () => {
