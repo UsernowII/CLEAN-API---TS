@@ -1,4 +1,4 @@
-import { SignUpController } from "../../../src/presentation/controllers/signup/SingUp-controller"
+import { SignUpController } from "../../../src/presentation/controllers/login/signup/SingUp-controller"
 import { MissingParamError, ServerError, UniqueEmailError } from "../../../src/presentation/errors";
 import { createdOk, badRequest, serverError, forbidden } from "../../../src/presentation/helpers/http/http-helper";
 import {
@@ -7,7 +7,7 @@ import {
   AccountModel,
   HttpRequest,
   Validation
-} from "../../../src/presentation/controllers/signup/signup-protocols";
+} from "../../../src/presentation/controllers/login/signup/signup-protocols";
 import { Authentication, AuthenticationModel } from "../../domain/usecases/authentication";
 
 type SutTypes = {
@@ -39,7 +39,7 @@ const makeValidation = (): Validation => {
       return null;
     }
   };
-  return new ValidationStub();  
+  return new ValidationStub();
 }
 
 const makeAuthentication = (): Authentication => {
@@ -116,7 +116,7 @@ describe('SignUp Controller', () => {
     sut.handle(httpRequest);
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
   });
-  
+
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationStub } = makeSut();
     jest.spyOn(validationStub, "validate").mockReturnValueOnce(new MissingParamError("any_field"));
@@ -129,7 +129,7 @@ describe('SignUp Controller', () => {
 		const authSpy = jest.spyOn(authenticationStub, "auth");
 		await sut.handle(makeFakeRequest());
 		expect(authSpy).toHaveBeenCalledWith({
-			email: "any_email@email.com", 
+			email: "any_email@email.com",
 			password: "any_password"
 		});
 		expect(authSpy).toHaveBeenCalledTimes(1);

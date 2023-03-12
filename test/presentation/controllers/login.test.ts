@@ -1,7 +1,7 @@
-import { LoginController } from "../../../src/presentation/controllers/login/Login-controller";
+import { LoginController } from "../../../src/presentation/controllers/login/login/Login-controller";
 import { MissingParamError } from "../../../src/presentation/errors";
 import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http/http-helper';
-import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../src/presentation/controllers/login/login-protocols";
+import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../src/presentation/controllers/login/login/login-protocols";
 
 interface SutTypes {
 	sut: LoginController,
