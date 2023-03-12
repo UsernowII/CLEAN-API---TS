@@ -1,9 +1,9 @@
 import { MissingParamError } from "../../../src/presentation/errors";
-import { RequiredFieldsValidation } from "../../../src/presentation/helpers/validators/RequiredFieldsValidation";
+import { RequiredFieldsValidation } from "../../../src/validation/validators";
 
 
 const makeSut = (field: string): RequiredFieldsValidation => {
-  return new RequiredFieldsValidation(field); 
+  return new RequiredFieldsValidation(field);
 }
 
 describe('Required Fields Validation', () => {
@@ -18,5 +18,5 @@ describe('Required Fields Validation', () => {
     const error = sut.validate({ field: "any_name"});
     expect(error).toBeNull();
   });
-  
+
 });

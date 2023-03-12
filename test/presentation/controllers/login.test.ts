@@ -1,6 +1,6 @@
 import { LoginController } from "../../../src/presentation/controllers/login/Login-controller";
-import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http/http-helper';
 import { MissingParamError } from "../../../src/presentation/errors";
+import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http/http-helper';
 import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../src/presentation/controllers/login/login-protocols";
 
 interface SutTypes {
@@ -51,7 +51,7 @@ describe('Login Controller', () => {
 		const authSpy = jest.spyOn(authenticationStub, "auth");
 		await sut.handle(makeFakeHttpRequest());
 		expect(authSpy).toHaveBeenCalledWith({
-			email: "any_email@email.com", 
+			email: "any_email@email.com",
 			password: "any_password"
 		});
 		expect(authSpy).toHaveBeenCalledTimes(1);

@@ -1,6 +1,6 @@
-import { EmailValidation } from "../../../src/presentation/helpers/validators/EmailValidation";
+import { EmailValidation } from "../../../src/validation/validators";
 import { InvalidParamError } from "../../../src/presentation/errors";
-import { EmailValidator } from "../../../src/presentation/protocols/emailValidator";
+import { EmailValidator } from "../../../src/validation/protocols/emailValidator";
 
 type SutTypes = {
   sut: EmailValidation,
@@ -66,5 +66,5 @@ describe('Email Validation', () => {
     })
     expect(sut.validate).toThrowError();
   });
-  
+
 });

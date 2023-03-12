@@ -1,8 +1,8 @@
 import { InvalidParamError } from "../../../src/presentation/errors";
-import { CompareFieldsValidation } from "../../../src/presentation/helpers/validators/CompareFieldsValidation";
+import { CompareFieldsValidation } from "../../../src/validation/validators";
 
 const makeSut = (): CompareFieldsValidation => {
-  return new CompareFieldsValidation("field", "compareField"); 
+  return new CompareFieldsValidation("field", "compareField");
 }
 
 describe('Compare Fields Validation', () => {
@@ -17,5 +17,5 @@ describe('Compare Fields Validation', () => {
     const error = sut.validate({ field: "any_value", compareField: "any_value"});
     expect(error).toBeNull();
   });
-  
+
 });
