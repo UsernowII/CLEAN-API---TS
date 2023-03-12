@@ -1,14 +1,14 @@
-import { SignUpController } from "../../../src/presentation/controllers/login/signup/SingUp-controller"
-import { MissingParamError, ServerError, UniqueEmailError } from "../../../src/presentation/errors";
-import { createdOk, badRequest, serverError, forbidden } from "../../../src/presentation/helpers/http/http-helper";
+import { SignUpController } from "../../../../src/presentation/controllers/login/signup/SingUp-controller";
+import { MissingParamError, ServerError, UniqueEmailError } from "../../../../src/presentation/errors";
+import { createdOk, badRequest, serverError, forbidden } from "../../../../src/presentation/helpers/http/http-helper";
 import {
   AddAccount,
   AddAccountModel,
   AccountModel,
   HttpRequest,
   Validation
-} from "../../../src/presentation/controllers/login/signup/signup-protocols";
-import { Authentication, AuthenticationModel } from "../../domain/usecases/authentication";
+} from "../../../../src/presentation/controllers/login/signup/signup-protocols";
+import { Authentication, AuthenticationModel } from "../../../../src/domain/usecases/authentication";
 
 type SutTypes = {
   sut: SignUpController,
@@ -35,16 +35,16 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate(data: any): Error {
+    validate(_data: any): Error {
       return null;
     }
-  };
+  }
   return new ValidationStub();
 }
 
 const makeAuthentication = (): Authentication => {
 	class AuthenticationStub implements Authentication {
-		async auth(auth: AuthenticationModel): Promise<string> {
+		async auth(_auth: AuthenticationModel): Promise<string> {
 			return Promise.resolve("any_token");
 		}
 	}
@@ -53,7 +53,7 @@ const makeAuthentication = (): Authentication => {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    add(account: AddAccountModel): Promise<AccountModel> {
+    add(_account: AddAccountModel): Promise<AccountModel> {
       return Promise.resolve(makeFakeAccount());
     };
   }
@@ -101,7 +101,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse).toEqual(createdOk({ accessToken : "any_token"}));
   });
 
-  test('Should return 403 if AddAcount returns null', async () => {
+  test('Should return 403 if AddAccount returns null', async () => {
     const { sut, addAccountStub } = makeSut();
     jest.spyOn(addAccountStub, "add").mockReturnValueOnce(Promise.resolve(null))
     const httpResponse = await sut.handle(makeFakeRequest());

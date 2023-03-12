@@ -1,7 +1,7 @@
-import { LoginController } from "../../../src/presentation/controllers/login/login/Login-controller";
-import { MissingParamError } from "../../../src/presentation/errors";
-import { badRequest, serverError, unauthorized, ok } from '../../../src/presentation/helpers/http/http-helper';
-import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../src/presentation/controllers/login/login/login-protocols";
+import { LoginController } from "../../../../src/presentation/controllers/login/login/Login-controller";
+import { MissingParamError } from "../../../../src/presentation/errors";
+import { Validation, Authentication, HttpRequest, AuthenticationModel } from "../../../../src/presentation/controllers/login/login/login-protocols";
+import { unauthorized, badRequest, serverError, ok } from "../../../../src/presentation/helpers/http/http-helper";
 
 interface SutTypes {
 	sut: LoginController,
@@ -18,16 +18,16 @@ const makeFakeHttpRequest = (): HttpRequest => ({
 
 const makeValidation = (): Validation => {
 	class ValidationStub implements Validation {
-		validate(data: any): Error {
+		validate(_data: any): Error {
 			return null;
 		}
-	};
+	}
 	return new ValidationStub();
 }
 
 const makeAuthentication = (): Authentication => {
 	class AuthenticationStub implements Authentication {
-		async auth(auth: AuthenticationModel): Promise<string> {
+		async auth(_auth: AuthenticationModel): Promise<string> {
 			return Promise.resolve("any_token");
 		}
 	}
