@@ -3,3 +3,4 @@ export * from "./MissinParamError";
 export * from "./ServerError";
 export * from "./UnauthorizedError";
 export * from "./UniqueEmailError";
+export * from "./AccessDeniedError";
