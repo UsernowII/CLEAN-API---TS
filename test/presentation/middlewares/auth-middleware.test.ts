@@ -6,51 +6,52 @@ import { LoadAccountByToken } from '../../domain/usecases/loadAccountByToken';
 import { AccountModel } from '../../domain/models/account';
 
 interface SutTypes {
-    sut: AuthMiddleware;
-    loadAccountByTokenStub: LoadAccountByToken;
+	sut: AuthMiddleware;
+	loadAccountByTokenStub: LoadAccountByToken;
 }
 
 const makeFakeAccount = (): AccountModel => ({
-    id: "valid_id",
-    name: "valid_name",
-    email: "valid_email@email.com",
-    password: "valid_password",
+	id: "valid_id",
+	name: "valid_name",
+	email: "valid_email@email.com",
+	password: "valid_password",
+});
+
+const makeFakeRequest = (): HttpRequest => ({
+	headers: { "x-access-token": "any_token" }
 });
 
 const makeLoadAccountByToken = (): LoadAccountByToken => {
-    class LoadAccountByTokenStub implements LoadAccountByToken {
-        load (accessToken: string, role?: string): Promise<AccountModel> {
-            return Promise.resolve(makeFakeAccount());
-        } 
-    }
-    return new LoadAccountByTokenStub();
+	class LoadAccountByTokenStub implements LoadAccountByToken {
+		load(accessToken: string, role?: string): Promise<AccountModel> {
+			return Promise.resolve(makeFakeAccount());
+		}
+	}
+	return new LoadAccountByTokenStub();
 }
 
 
 const makeSut = () => {
-    const loadAccountByTokenStub = makeLoadAccountByToken();
-    const sut = new AuthMiddleware(loadAccountByTokenStub);
-    return {
-        sut, loadAccountByTokenStub
-    }
-    
+	const loadAccountByTokenStub = makeLoadAccountByToken();
+	const sut = new AuthMiddleware(loadAccountByTokenStub);
+	return {
+		sut, loadAccountByTokenStub
+	}
+
 }
 
 describe('Auth Middleware', () => {
-  test('Should return 403 if no x-access-token exist', async () => {
-    const { sut } = makeSut();
-    const httpRequest: HttpRequest = {}
-    const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
-  });
-  test('Should call 403 LoadAccountByToken with correct accessToken', async () => {
-    const { sut, loadAccountByTokenStub } = makeSut();
-    const loadSpy = jest.spyOn(loadAccountByTokenStub, "load");
-    const httpRequest: HttpRequest = {
-        headers: { "x-access-token": "any_token"}
-    };
-    await sut.handle(httpRequest);
-    expect(loadSpy).toHaveBeenCalledWith("any_token");
-  });
+	test('Should return 403 if no x-access-token exist', async () => {
+		const { sut } = makeSut();
+		const httpRequest: HttpRequest = {}
+		const httpResponse = await sut.handle(httpRequest);
+		expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
+	});
+	test('Should call 403 LoadAccountByToken with correct accessToken', async () => {
+		const { sut, loadAccountByTokenStub } = makeSut();
+		const loadSpy = jest.spyOn(loadAccountByTokenStub, "load");
+		await sut.handle(makeFakeRequest());
+		expect(loadSpy).toHaveBeenCalledWith("any_token");
+	});
 
 });
