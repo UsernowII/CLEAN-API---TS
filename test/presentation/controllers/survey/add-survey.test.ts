@@ -12,7 +12,7 @@ type SutTypes = {
 const makeFakeRequest = (): HttpRequest => ({
     body: {
         question: "any_question",
-        answer: [
+        answers: [
             { image: "any_image", answer: "any_answer"}
         ],
     }
