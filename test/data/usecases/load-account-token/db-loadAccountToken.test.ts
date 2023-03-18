@@ -53,6 +53,12 @@ describe('Db LoadAccountToken UseCase', () => {
     const account = await sut.load('any_token', 'any_role');
     expect(account).toBeNull();
   });
+  test('Should throw if Decrypter throws', async () => {
+    const { sut, decreypterStub } = makeSut();
+    jest.spyOn(decreypterStub, "decrypt").mockRejectedValueOnce(new Error())
+    const promise = sut.load('any_token', 'any_role');
+    await expect(promise).rejects.toThrow();
+  });
   test('Should call LoadAccountByTokenRepo with correct values', async () => {
     const { sut, loadAccountByTokenRepoStub } = makeSut();
     const loadRepoSpy = jest.spyOn(loadAccountByTokenRepoStub, "loadByToken");
@@ -64,6 +70,12 @@ describe('Db LoadAccountToken UseCase', () => {
     jest.spyOn(loadAccountByTokenRepoStub, "loadByToken").mockResolvedValueOnce(null);
     const account = await sut.load('any_token', 'any_role');
     expect(account).toBeNull();
+  });
+  test('Should throw if LoadAccountByTokenRepo throws', async () => {
+    const { sut, loadAccountByTokenRepoStub } = makeSut();
+    jest.spyOn(loadAccountByTokenRepoStub, "loadByToken").mockRejectedValueOnce(new Error())
+    const promise = sut.load('any_token', 'any_role');
+    await expect(promise).rejects.toThrow();
   });
   test('Should return an account on success', async () => {
     const { sut } = makeSut();
