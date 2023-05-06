@@ -1,6 +1,6 @@
 import { Collection } from "mongodb";
 import { MongoHelper } from "../../../../../src/infra/db/mongodb/helpers/mongo-helper";
-import { AddSurveyRepository } from "../../../../data/protocols/db/survey/addSurveyRepository";
+import { AddSurveyRepository } from "../../../../../src/data/protocols/db/survey/addSurveyRepository";
 import { SurveyMongoRepository } from '../../../../../src/infra/db/mongodb/survey/surveyMongoRepository';
 
 let surveyCollection: Collection;
@@ -8,7 +8,7 @@ let surveyCollection: Collection;
 describe('Survey Mongo Repository', () => {
 
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL as string);
   });
 
   afterAll(async () => {

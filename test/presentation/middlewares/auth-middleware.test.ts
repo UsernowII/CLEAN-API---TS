@@ -54,7 +54,7 @@ describe('Auth Middleware', () => {
 	});
 	test('Should return 403 if LoadAccountByToken return null', async () => {
 		const { sut, loadAccountByTokenStub } = makeSut();
-		jest.spyOn(loadAccountByTokenStub, "load").mockResolvedValueOnce(null);
+		jest.spyOn(loadAccountByTokenStub, "load").mockResolvedValueOnce(null!);
 		const httpResponse = await sut.handle(makeFakeRequest());
 		expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
 	});

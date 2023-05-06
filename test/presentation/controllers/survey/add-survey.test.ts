@@ -1,7 +1,7 @@
 import { HttpRequest, Validation } from "../../../../src/presentation/protocols";
 import { AddSurveyController } from "../../../../src/presentation/controllers/survey/add-survey-controller";
 import { badRequest, noContent, serverError } from '../../../../src/presentation/helpers/http/http-helper';
-import { AddSurvey, AddSurveyModel } from "./add-survey-protocols";
+import { AddSurvey, AddSurveyModel } from "../../../../src/domain/usecases/addSurvey";
 
 type SutTypes = {
     sut: AddSurveyController,
@@ -30,7 +30,7 @@ const makeAddSurvey = (): AddSurvey => {
 const makeValidation = () => {
     class ValidationStub implements Validation {
         validate (_data: any): Error {
-            return null;
+            return null!;
         }
 
     }

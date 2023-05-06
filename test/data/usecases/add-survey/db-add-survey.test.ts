@@ -1,6 +1,6 @@
 import { DbAddSurvey } from "../../../../src/data/usecases/add-survey/db-add-survey"
 import { AddSurveyModel } from '../../../../src/domain/usecases/addSurvey';
-import { AddSurveyRepository } from "../../protocols/db/survey/addSurveyRepository";
+import { AddSurveyRepository } from "../../../../src/data/protocols/db/survey/addSurveyRepository";
 
 interface SutTypes {
   sut: DbAddSurvey,

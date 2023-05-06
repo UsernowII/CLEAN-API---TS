@@ -7,7 +7,7 @@ let accountCollection: Collection;
 describe('Account Mongo Repository', () => {
 
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL as string);
   });
 
   afterAll(async () => {
@@ -73,7 +73,7 @@ describe('Account Mongo Repository', () => {
       await sut.updateAccessToken(insertedId.toString(), "any_token");
       const account = await accountCollection.findOne({ _id: insertedId});
       expect(account).toBeTruthy();
-      expect(account.accessToken).toBe("any_token");
+      expect(account?.accessToken).toBe("any_token");
     });
   })
 

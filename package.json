@@ -10,14 +10,14 @@
     "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "build": "rimraf ./dist && tsc",
-    "build:watch": "rimraf dist && tsc -p tsconfig-build.json -w",
+    "build:watch": "rimraf dist && tsc -p tsconfig.build.json -w",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "prepare": "husky install",
+    "prepare:dev": "husky install",
     "husky": "node ./node_modules/husky/lib/bin.js"
   },
   "repository": {

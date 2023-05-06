@@ -3,7 +3,7 @@ import { MongoHelper as sut } from '../../../../../src/infra/db/mongodb/helpers/
 describe('Mongo Helper', () => {
 
 	beforeAll( async () => {
-		await sut.connect(process.env.MONGO_URL);
+		await sut.connect(process.env.MONGO_URL as string);
 	});
 
 	afterAll( async () => {
