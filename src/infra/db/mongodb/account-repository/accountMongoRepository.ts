@@ -4,8 +4,11 @@ import { LoadAccountByEmailRepository } from "../../../../data/protocols/db/acco
 import { UpdateAccessTokenRepository } from "../../../../data/protocols/db/account/updateAccessTokenRepository";
 import { MongoHelper } from "../helpers/mongo-helper";
 import { ObjectId } from "mongodb";
+import { LoadAccountByTokenRepository } from "../../../../data/protocols/db/account/loadAccountByTokenRepository";
 
-export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
+export class AccountMongoRepository implements
+AddAccountRepository, LoadAccountByEmailRepository,
+UpdateAccessTokenRepository, LoadAccountByTokenRepository {
     async add (account: AddAccountModel): Promise <AccountModel> {
         const accountCollection = await MongoHelper.getCollection("accounts");
         const { insertedId } = await accountCollection.insertOne(account);
@@ -36,5 +39,21 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
                 accessToken: token
             }
         });
+    };
+
+    async loadByToken (token: string, role?: string): Promise<AccountModel> {
+        const accountCollection = await MongoHelper.getCollection("accounts");
+        const account = await accountCollection.findOne({
+            accessToken: token,
+            role
+        }, {
+            projection: {
+                _id: 1,
+                name: 1,
+                password: 1,
+                email: 1
+            }
+        });
+        return account && MongoHelper.mapper(account, account._id);
     };
 }
