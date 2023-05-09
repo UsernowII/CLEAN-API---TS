@@ -36,7 +36,7 @@ const makeFakeRequest = (): HttpRequest => ({
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate(_data: any): Error {
-      return null;
+      return null!;
     }
   }
   return new ValidationStub();
@@ -91,7 +91,7 @@ describe('SignUp Controller', () => {
       return Promise.reject(new Error());
     })
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(serverError(new ServerError(null)));
+    expect(httpResponse).toEqual(serverError(new ServerError(null!)));
   });
 
   test('Should return 201 if valid data is provided', async () => {
@@ -103,7 +103,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 403 if AddAccount returns null', async () => {
     const { sut, addAccountStub } = makeSut();
-    jest.spyOn(addAccountStub, "add").mockReturnValueOnce(Promise.resolve(null))
+    jest.spyOn(addAccountStub, "add").mockReturnValueOnce(Promise.resolve(null!))
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse.statusCode).toBe(403);
     expect(httpResponse).toEqual(forbidden(new UniqueEmailError()));

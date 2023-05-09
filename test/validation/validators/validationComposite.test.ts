@@ -9,7 +9,7 @@ type SutTypes = {
 
 const makeValidation = (): Validation => {
 	class ValidationStub implements Validation {
-		validate = (data: any): Error => null;
+		validate = (data: any): Error => null!;
 	}
 	return new ValidationStub();
 }
