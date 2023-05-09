@@ -6,6 +6,7 @@ export const adapterMiddleware = (middleware: Middleware) => {
         const httpRequest: HttpRequest = {
             headers: req.headers
         };
+        console.log(req.headers, "REQUEST");
         const httpResponse: HttpResponse = await middleware.handle(httpRequest);
         if (httpResponse.statusCode === 200) {
             Object.assign(req, httpResponse.body);

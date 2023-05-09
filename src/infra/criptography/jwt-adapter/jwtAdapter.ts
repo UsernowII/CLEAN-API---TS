@@ -10,6 +10,6 @@ export class JwtAdapter implements Encrypter, Decrypter {
     };
 
     async decrypt (token: string): Promise<string> {
-        return jwt.verify(token, this.secret) as string;
+        return jwt.verify(token, this.secret) as any;
     };
 }
