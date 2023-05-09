@@ -43,17 +43,27 @@ UpdateAccessTokenRepository, LoadAccountByTokenRepository {
 
     async loadByToken (token: string, role?: string): Promise<AccountModel> {
         const accountCollection = await MongoHelper.getCollection("accounts");
-        const account = await accountCollection.findOne({
-            accessToken: token,
-            role
-        }, {
-            projection: {
-                _id: 1,
-                name: 1,
-                password: 1,
-                email: 1
+        const account = await accountCollection.findOne(
+            {
+                accessToken: token,
+                $or: [
+                    {
+                        role
+                    },
+                    {
+                        role: "admin"
+                    }
+                ]
+            },
+            {
+                projection: {
+                    _id: 1,
+                    name: 1,
+                    password: 1,
+                    email: 1
+                }
             }
-        });
+        );
         return account && MongoHelper.mapper(account, account._id);
     };
 }
