@@ -78,7 +78,7 @@ describe('Account Mongo Repository', () => {
   })
 
   describe("LoadByToken", () => {
-    test('Should return an account when loadByToken wihtout role success', async () => {
+    test('Should return an account when loadByToken without role success', async () => {
       const sut = makeSut();
       await accountCollection.insertOne({
         name: "any_name",
