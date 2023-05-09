@@ -1,11 +1,8 @@
-[![Build Status](https://travis-ci.org/rmanguinho/clean-ts-api.svg?branch=master)](https://travis-ci.org/rmanguinho/clean-ts-api)
 [![Coverage Status](https://coveralls.io/repos/github/rmanguinho/clean-ts-api/badge.svg)](https://coveralls.io/github/rmanguinho/clean-ts-api)
-[![Known Vulnerabilities](https://snyk.io/test/github/rmanguinho/clean-ts-api/badge.svg)](https://snyk.io/test/github/rmanguinho/clean-ts-api)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
-## [**LinkedIn Author Rodrigo Manguinho**](https://www.linkedin.com/in/rmanguinho/)
 
 # **Clean Node API**
 
@@ -35,7 +32,7 @@ The objective of the training is to show how to create an API with a well-define
 * Separation of Concerns (SOC)
 * Don't Repeat Yourself (DRY)
 * You Aren't Gonna Need It (YAGNI)
-* Keep It Simple, Silly (KISS)
+* Keep It Simple, Stupid (KISS)
 * Composition Over Inheritance
 * Small Commits
 
@@ -119,7 +116,7 @@ The objective of the training is to show how to create an API with a well-define
 > ## Features in Git
 
 * Alias
-* Log Personalizado
+* Custom Log
 * Branch
 * Reset
 * Amend
@@ -130,13 +127,13 @@ The objective of the training is to show how to create an API with a well-define
 
 > ## Features in Typescript
 
-* POO Avançado
+* POO Advanced
 * Interface
 * TypeAlias
 * Namespace
 * Utility Types
-* Modularização de Paths
-* Configurações
+* Paths Modularization
+* Settings
 * Build
 * Deploy
 * Uso de Breakpoints
